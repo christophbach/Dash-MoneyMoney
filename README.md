@@ -2,6 +2,8 @@
 Fetches amount and value of privately held Litecoin address via blockexplorer and returns it as a security.  
 This can be also be used to track your cold storage.
 
+Do you like this extension? Donation Litecoin address: LhB4wcqZoYD7GeACbEgwHBivYywJGvdBzG
+
 ![MoneyMoney screenshot with Litecoin Balance](screens/litecoin-balance.png)
 
 ## Extension Setup
@@ -13,7 +15,7 @@ You can get a signed version of this extension from
 
 Once downloaded, move `Litecoin.lua` to your MoneyMoney Extensions folder.
 
-**Note:** This extension requires MoneyMoney **Version 2.3.3** or newer.
+**Note:** This extension requires MoneyMoney **Version 2.3.4** or newer.
 
 ## MoneyMoney Setup
 
