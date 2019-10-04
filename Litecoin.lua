@@ -30,7 +30,7 @@
 
 
 WebBanking{
-  version = 0.1,
+  version = 0.2,
   description = "Include your Litecoins as cryptoportfolio in MoneyMoney by providing Litecoin addresses as usernme (comma seperated) and a random Password",
   services= { "Litecoin" }
 }
@@ -93,18 +93,21 @@ end
 function requestLitecoinQuantityForLitecoinAddress(litecoinAddress)
   response = connection:request("GET", litecoinRequestUrl(litecoinAddress), {})
   json = JSON(response)
-  
-  return json:dictionary()['data']['confirmed_balance']
+  balance = json:dictionary()['balance']
+
+  return convertSatoshiToLitecoin(balance)
 end
 
 
 -- Helper Functions
+function convertSatoshiToLitecoin(satoshi)
+  return satoshi / 100000000
+end
 
 function cryptocompareRequestUrl()
   return "https://min-api.cryptocompare.com/data/price?fsym=LTC&tsyms=EUR"
-end 
-
-function litecoinRequestUrl(litecoinAddress)
-  return "https://chain.so/api/v2/get_address_balance/LTC/" .. litecoinAddress .. ""
 end
 
+function litecoinRequestUrl(litecoinAddress)
+  return "https://api.blockcypher.com/v1/ltc/main/addrs/" .. litecoinAddress .. "/balance"
+end
