@@ -1,14 +1,14 @@
--- Inofficial Litecoin Extension for MoneyMoney
--- Fetches Litecoin quantity for addresses via chain.so API
--- Fetches Litecoin price in EUR via cryptocompare.com API
--- Returns cryptoassets as securities
+-- Inofficial Dash Extension for MoneyMoney
+-- Fetches Dash quantity for addresses via blockcypher.com API
+-- Fetches Dash price in EUR via cryptocompare.com API
+-- Returns crypto assets as securities
 --
--- Username: Litecoin Adresses comma seperated
--- Password: [Whatever]
+-- Username: Dash adresses, comma seperated
+-- Password: not needed
 
 -- MIT License
 
--- Copyright (c) 2017 Zafai
+-- Copyright (c) 2020 Christoph Bach
 
 -- Permission is hereby granted, free of charge, to any person obtaining a copy
 -- of this software and associated documentation files (the "Software"), to deal
@@ -30,52 +30,52 @@
 
 
 WebBanking{
-  version = 0.2,
-  description = "Include your Litecoins as cryptoportfolio in MoneyMoney by providing Litecoin addresses as usernme (comma seperated) and a random Password",
-  services= { "Litecoin" }
+  version = 0.1,
+  description = "Include your Dash as crypto portfolio in MoneyMoney by providing Dash addresses as username (comma seperated).",
+  services = { "Dash" }
 }
 
-local litecoinAddress
+local dashAddress
 local connection = Connection()
 local currency = "EUR"
 
 function SupportsBank (protocol, bankCode)
-  return protocol == ProtocolWebBanking and bankCode == "Litecoin"
+  return protocol == ProtocolWebBanking and bankCode == "Dash"
 end
 
 function InitializeSession (protocol, bankCode, username, username2, password, username3)
-  litecoinAddress = username:gsub("%s+", "")
+  dashAddress = username:gsub("%s+", "")
 end
 
 function ListAccounts (knownAccounts)
   local account = {
-    name = "Litecoin",
-    accountNumber = "Litecoin",
+    name = "Dash",
+    accountNumber = "Dash",
     currency = currency,
     portfolio = true,
     type = "AccountTypePortfolio"
   }
 
-  return {account}
+  return { account }
 end
 
 function RefreshAccount (account, since)
   local s = {}
-  prices = requestLitecoinPrice()
+  prices = requestDashPrice()
 
-  for address in string.gmatch(litecoinAddress, '([^,]+)') do
-    litecoinQuantity = requestLitecoinQuantityForLitecoinAddress(address)
+  for address in string.gmatch(dashAddress, '([^,]+)') do
+    dashQuantity = requestDashQuantityForDashAddress(address)
 
     s[#s+1] = {
       name = address,
       currency = nil,
       market = "cryptocompare",
-      quantity = litecoinQuantity,
+      quantity = dashQuantity,
       price = prices,
     }
   end
 
-  return {securities = s}
+  return { securities = s }
 end
 
 function EndSession ()
@@ -83,31 +83,31 @@ end
 
 
 -- Querry Functions
-function requestLitecoinPrice()
+function requestDashPrice()
   response = connection:request("GET", cryptocompareRequestUrl(), {})
   json = JSON(response)
 
   return json:dictionary()['EUR']
 end
 
-function requestLitecoinQuantityForLitecoinAddress(litecoinAddress)
-  response = connection:request("GET", litecoinRequestUrl(litecoinAddress), {})
+function requestDashQuantityForDashAddress(dashAddress)
+  response = connection:request("GET", dashRequestUrl(dashAddress), {})
   json = JSON(response)
   balance = json:dictionary()['balance']
 
-  return convertSatoshiToLitecoin(balance)
+  return convertSatoshiToDash(balance)
 end
 
 
 -- Helper Functions
-function convertSatoshiToLitecoin(satoshi)
+function convertSatoshiToDash(satoshi)
   return satoshi / 100000000
 end
 
 function cryptocompareRequestUrl()
-  return "https://min-api.cryptocompare.com/data/price?fsym=LTC&tsyms=EUR"
+  return "https://min-api.cryptocompare.com/data/price?fsym=DASH&tsyms=EUR"
 end
 
-function litecoinRequestUrl(litecoinAddress)
-  return "https://api.blockcypher.com/v1/ltc/main/addrs/" .. litecoinAddress .. "/balance"
+function dashRequestUrl(dashAddress)
+  return "https://api.blockcypher.com/v1/dash/main/addrs/" .. dashAddress .. "/balance"
 end

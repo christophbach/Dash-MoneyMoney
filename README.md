@@ -1,29 +1,19 @@
-# Litecoin-MoneyMoney
-Fetches amount and value of privately held Litecoin address via blockexplorer and returns it as a security.  
+# Dash-MoneyMoney
+Fetches amount and value of privately held Dash address via blockexplorer and returns it as a security.  
 This can be also be used to track your cold storage.
-
-Do you like this extension? Donation Litecoin address: LhB4wcqZoYD7GeACbEgwHBivYywJGvdBzG
-
-![MoneyMoney screenshot with Litecoin Balance](screens/litecoin-balance.png)
 
 ## Extension Setup
 
-You can get a signed version of this extension from
+Download the latest package from the  
+* [GitHub releases page](https://github.com/christophbach/Dash-MoneyMoney/releases)
 
-* my [GitHub releases page](https://github.com/zafai/Litecoin-MoneyMoney/releases/tag/v0.1), or
-* the [MoneyMoney Extensions](https://moneymoney-app.com/extensions/) page
-
-Once downloaded, move `Litecoin.lua` to your MoneyMoney Extensions folder.
+Once downloaded, move `Dash.lua` to your MoneyMoney extensions folder.
 
 **Note:** This extension requires MoneyMoney **Version 2.3.4** or newer.
 
 ## MoneyMoney Setup
 
-Add a new account (type "Litecoin"). 
+Add a new account (e. g. “Dash”). 
 
-**Use your Litecoin adresses coma seperated as user name**  
-`LYK8BKoT5XRH86JyQoiczYvfCuKmQnknbA, LXTU91nPrNFK9CaAFCUgefcr1RddPE7JmT` (example)
-
-**Use whatever you want as password**  
-`123` (example)
-
+**Use your Dash adresses coma seperated as user name**  
+`XbPn713xJT6GsTaiVj7CL3iw6SQHXC7pZi, XtUZa1iV3v9M2stpkYVJ3xFVxtgfkjNero` (example)
