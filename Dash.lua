@@ -4,7 +4,7 @@
 -- Returns crypto assets as securities
 --
 -- Username: Dash adresses, comma seperated
--- Password: not needed
+-- Password: [Whatever]
 
 -- MIT License
 
